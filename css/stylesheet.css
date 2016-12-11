@@ -1,47 +1,113 @@
 body {
-  background-color: orange;
+  background-color: #FFF;
   margin: 0 auto;
   text-align: center;
+  font-family: Courier, monospace;
 }
 
 header {
-  padding: 10px;
+  padding: 5px;
   margin: 20px;
 }
 
 h1 {
-  padding: 30px;
+  padding: 5px;
+  font-size: 3em;
+
 }
+
+main {
+  border: 3px solid grey;
+  height: 580px;
+  margin: 40px;
+  color: #00FF00;
+  background-color: black;
+}
+/*div.inner {
+  background-color: grey;
+  border: 3px solid grey;
+}*/
 
 div.cipher {
   margin: 0 auto;;
   padding: 40px;
   height: 350px;
   width: 650px;
-  border: 3px solid black;
+  border: 3px solid grey;
   display: inline-block;
 }
 
 div.cipher > p {
   margin-top: 60px;
+  font-size: 4em;
 }
 
-div.userinput {
-  margin: 40px;
+div.terminalMock {
+  height: 150px;
+  width: 526px;
+  margin-left: 48px;
+  margin-top: 300px;
   padding: 20px;
-  border: 3px solid black;
+  border: 3px solid grey;
 }
 
-div.instructions {
-  margin-top: -580px;
-  margin-right: 20px;
+span {
+  float: left;
+  padding-left:3px;
+  white-space: pre;
+}
+div.termInput {
+  display: inline;
+}
+
+#fakeCursor {
+  float: left;
+  width: 5px;
+  height: 15px;
+  background: #00FF00;
+
+}
+
+p.termInput {
+  font-size: 1.1em;
+  text-align: left;
+  margin-top: 150px;
+}
+
+div.vitalStats {
+  margin-top: 30px;
+  margin-right: 50px;
   float: right;
   display: inline-block;
-  border: 3px solid black;
-  height: 429.4px;
-  width: 240px;
+  border: 3px solid grey;
+  height: 460px;
+  width: 170px;
 }
 
 input {
-  width: 60%;
+  width: 90%;
+  margin-top: 0px;
+  margin-right: 230px;
+  margin-left: 40px;
+  padding: 4px;
+  font-family: inherit;
+  font-size: 1em;
+  border: none;
+  -webkit-appearance: none;s
+}
+
+button {
+  display: none;
+}
+
+nav {
+  text-align: center;
+  margin: 0 auto;
+}
+
+nav li {
+  float: left;
+  padding: 10px;
+  text-align: center;
+  margin: 0 auto;
 }

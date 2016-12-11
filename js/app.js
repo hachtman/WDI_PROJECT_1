@@ -4,9 +4,9 @@ var Game = Game || {
   points: 0,
   answerString: '',
   workingString: [],
-  strings_low_diff: ['password', '1234', '12345678', 'enter'],
-  strings_med_diff: ['PASSWORRD', 'MORE', 'DIFF', 'MEDIUM'],
-  strings_high_diff: ['HARD', 'VERY', 'TOUGH', '789'],
+  strings_low_diff: ['password', '1234', '12345678', 'enter', 'dragon', 'baseball', 'football', 'monkey', '696969', 'master', 'jordan', 'asshole', 'fuckme', 'test', 'fuck', 'pass', 'yellow', 'secret', 'guitar', 'love'],
+  strings_med_diff: ['abc123', 'jennifer', 'joshua', 'computer', 'ranger', 'batman'],
+  strings_high_diff: ['qwerty', 'mustang', 'TOUGH', '789'],
   cipher_functions: {caesarKey: function getCaesarShift() {
     return Math.floor(Math.random() * 26);
   }
@@ -16,6 +16,7 @@ var Game = Game || {
 $(run);
 
 function run () {
+  $('#input').focus();
   Game.generateProblem();
   $('form').on('submit', function(e){
     e.preventDefault();
@@ -34,7 +35,7 @@ Game.isCorrect = function($input) {
     console.log('false');
     Game.points--;
   }
-  $('.points').html('SCORE: ' + Game.points);
+  $('.points').html('POINTS: ' + Game.points);
   Game.lvlUp();
 };
 
@@ -45,24 +46,28 @@ Game.clear = function(winOrLose) {
     console.log('.clear shouldn\'t be running');
     return false;
   }
-  $('#input'). find('input[type=text], textarea').val();
+  $('#input'). find('input[type=text], textarea').val('');
   Game.workingString = [];
   console.log($('cleared'));
   Game.generateProblem();
 };
 
+//Check for lvl up. Broken.
 Game.lvlUp = function() {
   if(Game.points < 10) {
     return true;
   } else if(Game.points < 20){
-    Game.diff++;
+    Game.diff = 1;
+    $('.Level').html('LVL: 1');
     // youLvldUp();
   } else if(Game.points < 30){
-    Game.diff++;
+    Game.diff = 2;
+    $('.Level').html('LVL: 2');
     // youLvldUp();
+  } else if(Game.points === 40) {
+    // Game.youWon();
   }
 };
-
 
 
 Game.generateProblem = function() {
@@ -80,12 +85,11 @@ Game.jumble = function() {
     Game.workingString.push(x.charAt(i));
   }
   //Shuffle the array using the knuth shuffle and overwrite the working string variable.
-  // if(Game.diff === 0 || Game.diff === 1){
-  //   Game.fisherYatesShuffleMiddleOnly();
-  // } else {
-  Game.fisherYatesShuffle();
-  // }
-  // fisherYatesShuffle(Game.workingString);
+  if(Game.diff === 0 || Game.diff === 1){
+    Game.fisherYatesShuffleMiddleOnly();
+  } else {
+    Game.fisherYatesShuffle();
+  }
 };
 
 //Function to pick a random string, dependant on difficulty.
@@ -115,4 +119,34 @@ Game.fisherYatesShuffle = function() {
     Game.workingString[i] = tempj;
     Game.workingString[j] = tempi;
   }
+};
+
+Game.fisherYatesShuffleMiddleOnly = function() {
+  //Remove the first and last elements from the working string array.
+  var char0    = Game.workingString.shift();
+  var charLast = Game.workingString.pop();
+  //Shuffle the middle elements.
+  var i = Game.workingString.length;
+  if (i === 0) {
+    console.log('broken in function fischerYatesMiddle');
+    return false;
+  }
+  while (--i) {
+    var j = Math.floor( Math.random() * (i + 1) );
+    var tempi = Game.workingString[i];
+    var tempj = Game.workingString[j];
+    Game.workingString[i] = tempj;
+    Game.workingString[j] = tempi;
+  }
+  //Re-add the first and last elements.
+  Game.workingString.unshift(char0);
+  Game.workingString.push(charLast);
+  console.log(Game.workingString);
+};
+
+
+
+Game.caesarCipher = function() {
+  var key    = Game.cipher_functions.caesarKey();
+  var string =
 };
