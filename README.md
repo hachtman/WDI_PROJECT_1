@@ -36,17 +36,18 @@ Endless potential for animation.
 Basic Pseudo Code for v1.0.
 
 Display intro scene, working away normally. Prompt user to type 'log off' and then..
-
 Interrupt with hacky message (write text dynamically on screen?)
-
 Explain instructions, challenge user to solve codes to avoid meltdown.
-
 Present user with the first code, simple jumbles of internal letters. Input field styled to look like terminal.
-
 Allow user to make guesses, display sarcastic messages on failure.
-
 When they guess correctly, present user with a more complex problem. When they solve congratulate and display congratulations.
-
 //end.
 
-Generic screen object, with fields that can be rewritten dynamically with new problems.
+Pseudo-code basic logic.
+Collect a random string of the relevant difficulty.
+
+
+
+Encipher it and display it in the box.
+Collect the user input and test it against the solution.
+Increment the score.

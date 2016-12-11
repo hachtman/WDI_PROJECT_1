@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/stylesheet.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/app.js" charset="utf-8"></script>
@@ -9,17 +10,23 @@
 
   </head>
   <body>
+    <header>
+      <h1>Hack3d.</h1>
+    </header>
     <div class="cipher">
-      <p>This is test</p>
+      <p class="tosolve">This is test</p>
+      <p class="information"></p>
+      <p class="points">SCORE: 0</p>
+      <p class="Level">LVL: 0</p>
     </div>
     <div class="userinput">
       <form id="form" action="index.html" method="post">
         <input id="input" type="text" name="term1">
         <button type="submit" name="button"></button>
       </form>
-
+    </div>
+    <div class="instructions">
 
     </div>
-
   </body>
 </html>
