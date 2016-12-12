@@ -18,10 +18,12 @@ var Game = Game || {
 
 $(run);
 
-function run () {
+function run() {
 
   Game.caret();
-  Game.generateProblem();
+  $()
+  $('.start').on('click', Game.generateProblem);
+
   $('#input').focus();
   // Game.timer();
   $('form').on('submit', function(e){
@@ -39,7 +41,7 @@ Game.isCorrect = function($input) {
     console.log('Well Played!');
     Game.points++;
     Game.clear(1);
-  } else{
+  } else {
     console.log('false');
     Game.points--;
   }
@@ -162,8 +164,10 @@ Game.youLvldUp = function() {
   var interval = setInterval(function() {
     $('.timer').html(--cc);
     console.log(cc);
-    if (cc === 0)
+    if (cc === 0) {
       clearInterval(interval);
+      $('.tosolve').html(Game.workingString);
+    }
     console.log('here');
 
   }, 1000);
@@ -242,7 +246,7 @@ Game.caret = function() {
   //Select the span and save as a variable.
   var textArea = $('#writer');
   //Add event listener to input.
-  $('#input').on('keydown', function(e) {
+  $('#input').on('keyup', function(e) {
     //Set the html to ''.
     textArea.html('');
     var ascii = $(e.target).val();

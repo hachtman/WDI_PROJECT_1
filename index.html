@@ -29,14 +29,14 @@
         </div>
 
 
-        <div class="terminalMock">
+        <div class="terminalMock" onclick="$('#input').focus();">
           <ul>
             <li id= "prevAnswer3"></li>
             <li id= "prevAnswer2"></li>
             <li id= "prevAnswer1"></li>
           </ul>
 
-          <div class = "termInput" onclick="$('setter').focus();" >
+          <div class = "termInput"  >
             <p class="textArea">
               <span id= "writer"></span>
               <span id="fakeCursor"></span>
@@ -46,7 +46,7 @@
 
           <form id="form" action="index.html" method="post">
             <button type="submit" name="button"></button>
-            <input id="input"  type="text" name="term1">
+            <input id="input" autocomplete="off" type="text" name="term1">
           </form>
         </div>
 

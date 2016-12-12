@@ -91,15 +91,18 @@ div.vitalStats {
 }
 
 input {
-  width: 90%;
-  margin-top: 0px;
+  /*width: 90%;
+  margin-top: 80px;
   margin-right: 230px;
   margin-left: 40px;
   padding: 4px;
   font-family: inherit;
-  font-size: 1em;
+  font-size: 1em;*/
+  left: -1000px;
+	position: absolute;
   border: none;
-  -webkit-appearance: none;s
+  -webkit-appearance: none;
+  /*display: none;*/
 }
 
 button {
