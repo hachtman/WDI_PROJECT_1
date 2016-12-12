@@ -4,25 +4,23 @@ var Game = Game || {
   points: 0,
   answerString: '',
   workingString: [],
-  strings_low_diff: ['password', '1234', '12345678', 'enter', 'dragon', 'baseball', 'football', 'monkey', '696969', 'master', 'jordan', 'asshole', 'fuckme', 'test', 'fuck', 'pass', 'yellow', 'secret', 'guitar', 'love'],
+  strings_low_diff: ['password', '1234', '12345678', 'enter', 'dragon', 'baseball', 'football', 'monkey', '696969', 'master', 'jordan', 'asshole', 'fuckme', 'let me in', 'fuck', 'pass', 'yellow', 'secret', 'guitar', 'love'],
   strings_med_diff: ['abc123', 'jennifer', 'joshua', 'computer', 'ranger', 'batman'],
   strings_high_diff: ['qwerty', 'mustang', 'TOUGH', '789'],
   cipher_functions: {caesarKey: function getCaesarShift() {
     return Math.floor(Math.random() * 26);
   }
+
   }
 };
 
 $(run);
 
 function run() {
-
   Game.caret();
   Game.intro();
   $('#start').on('click', Game.initialise);
-
   $('#input').focus();
-  // Game.timer();
   $('form').on('submit', function(e){
     e.preventDefault();
     $('#writer').html('');
@@ -46,12 +44,63 @@ Game.initialise = function() {
   $('#start').remove();
   $('.information').html('');
   $('#input').focus();
+  $('.tosolve').html('');
   Game.generateProblem();
-  Game.timeOn();
+  Game.timeOnLvl1();
 };
 
-Game.timeOn = function() {
+Game.timeOnLvl1 = function() {
+  var cc = 30;
+  var interval = setInterval(function() {
+    $('.timer').html('Time' + --cc);
+    if(Game.points === 10) {
+      console.log('fired');
+      clearInterval(interval);
+    }
+    if (cc === 0) {
+      clearInterval(interval);
+      Game.timeOut();
+    }
+  }, 1000);
+};
 
+Game.timeOnLvl2 = function() {
+  var cc = 35;
+  var interval = setInterval(function() {
+    $('.timer').html('Time' + --cc);
+    if(Game.points === 20) {
+      clearInterval(interval);
+    }
+    if (cc === 0) {
+      clearInterval(interval);
+      Game.timeOut();
+    }
+  }, 1000);
+};
+
+Game.timeOnLvl3 = function() {
+  var cc = 35;
+  var interval = setInterval(function() {
+    $('.timer').html('TIME: ' + --cc);
+    if(Game.points === 30) {
+      console.log('fired');
+      clearInterval(interval);
+    }
+    if (cc === 0) {
+      clearInterval(interval);
+      Game.timeOut();
+    }
+  }, 1000);
+};
+
+Game.timeOut = function() {
+  $('.tosolve').html('');
+  $('.information').html('You lose! Do you wish to play again?');
+  var startButton = document.createElement('button');
+  $(startButton).attr('id', 'start');
+  $(startButton).html('START');
+  $('.display').append(startButton);
+  $('#start').on('click', Game.initialise);
 };
 
 Game.isCorrect = function($input) {
@@ -85,15 +134,15 @@ Game.clear = function(winOrLose) {
 Game.lvlUp = function() {
   if(Game.points < 10) {
     return true;
-  } else if(Game.points === 20){
+  } else if(Game.points === 10){
     Game.diff = 1;
     $('.Level').html('LVL: 1');
     Game.youLvldUp();
-  } else if(Game.points === 30){
+  } else if(Game.points === 20){
     Game.diff = 2;
     $('.Level').html('LVL: 2');
     Game.youLvldUp();
-  } else if(Game.points === 40) {
+  } else if(Game.points === 30) {
     Game.youWon();
   }
 };
@@ -180,7 +229,6 @@ Game.youLvldUp = function() {
   $('.tosolve').html('');
   $('.information').html('Well done. Feeling lucky? Round two coming up.');
   var cc = 5;
-
   var interval = setInterval(function() {
     $('.timer').html('Time' + --cc);
     console.log(cc);
@@ -189,14 +237,16 @@ Game.youLvldUp = function() {
       $('.tosolve').html(Game.workingString);
       $('.information').html('');
     }
-    console.log('here');
-
   }, 1000);
-  console.log('I work');
-
+  console.log(Game.diff);
+  if(Game.diff === 1) {
+    Game.timeOnLvl2();
+  } else if(Game.diff === 2) {
+    Game.timeOnLvl3();
+  }
 
   // $('.tosolve').html('');
-  // $('.information').html('Well done. Feeeling lucky? Solve the cipher for an extra 20s next round. If you dont solve it, you\'ll start 10 short.');
+  // $('.information').html('Well done. Feeeling lucky? Solve the cipher for an extra 10s next round. If you dont solve it, you\'ll start 5s short.');
   //
   // $('.information').append('<inupt id = "caesar">');
   // $('#caesar').focus();
@@ -247,21 +297,6 @@ Game.playCaesar = function() {
 //   return Game.caesarString.join('');
 //
 // };
-
-// Game.caret = function() {
-//   var textArea = $('#writer');
-//   console.log(textArea);
-//   $('#input').on('keydown', function(e) {
-//     var charPressed = e.which;
-//     var toPrint = String.fromCharCode(charPressed);
-//     textArea.append(toPrint);
-//     if(e.which === 8){
-//       console.log('delete');
-//       textArea = textArea.slice(0, -1);
-//     }
-//   });
-// };
-
 
 Game.caret = function() {
   //Select the span and save as a variable.

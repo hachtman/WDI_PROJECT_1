@@ -8,7 +8,7 @@ var Game = Game || {
   strings_low_diff: ['password', '1234', '12345678', 'enter'],
   strings_med_diff: ['password', '1234', '12345678', 'enter'],
   strings_high_diff: ['password', '1234', '12345678', 'enter'],
-
+snail
   cipher_functions: {caesarKey: function getCaesarShift() {
     return Math.floor(Math.random() * 26);
   }
@@ -125,3 +125,34 @@ Game.fisherYatesShuffleMiddleOnly = function() {
   console.log(Game.workingString);
 };
 */
+
+
+// Game.youLvldUp = function() {
+//   window.setInterval(function() {
+//     if(diff === 1) {
+//     caesarCipher();
+//   $('.tosolve').html('WELL DONE. TIME TO RAMP THINGS UP A NOTCH.');
+// } else if (diff === 2) {
+//   $('.tosolve').html('PRETTY GOOD');
+// }
+// }, 2000);
+
+// Game.caret =  function() {
+//   var cursor;
+//   cursor = Game.setInterval(function () {
+//   $('#fakeCursor').on('click', function(){
+//     if($(caret).css('visibility') === 'visible') {
+//       $(caret).css({visibility: 'hidden'
+//     });
+//   } else {
+//       $('#fakeCursor').css({visibility: 'visible'});
+//     };
+
+Game.caret = function() {
+  var textArea = $('.textArea');
+  $('#input').on('keydown', function(e) {
+    var ascii = $(e.target).val();
+    console.log(ascii);
+    textArea.append(ascii)
+  });
+};
