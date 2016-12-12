@@ -10,9 +10,6 @@ var Game = Game || {
   cipher_functions: {caesarKey: function getCaesarShift() {
     return Math.floor(Math.random() * 26);
   }
-  },
-  Control: {
-    running: true
   }
 };
 
@@ -21,8 +18,8 @@ $(run);
 function run() {
 
   Game.caret();
-  $()
-  $('.start').on('click', Game.generateProblem);
+  Game.intro();
+  $('#start').on('click', Game.initialise);
 
   $('#input').focus();
   // Game.timer();
@@ -34,6 +31,28 @@ function run() {
     $(this).closest('form').find('input[type=text], textarea').val('');
   });
 }
+
+Game.intro = function() {
+  $('.information').html('You\'ve been using a common password and have been hacked by L337 H4x0r. Common passwords are easy to crack, even when they\'re scrambled. Crack 10 in 30s to move on. PRESS START TO BEGIN.');
+  var startButton = document.createElement('button');
+  $(startButton).attr('id', 'start');
+  $(startButton).html('START');
+  $('.display').append(startButton);
+
+};
+
+Game.initialise = function() {
+  console.log('fired');
+  $('#start').remove();
+  $('.information').html('');
+  $('#input').focus();
+  Game.generateProblem();
+  Game.timeOn();
+};
+
+Game.timeOn = function() {
+
+};
 
 Game.isCorrect = function($input) {
   console.log(Game.workingString);
@@ -81,6 +100,7 @@ Game.lvlUp = function() {
 
 
 Game.generateProblem = function() {
+
   Game.jumble();
   $('.tosolve').html(Game.workingString);
 };
@@ -162,11 +182,12 @@ Game.youLvldUp = function() {
   var cc = 5;
 
   var interval = setInterval(function() {
-    $('.timer').html(--cc);
+    $('.timer').html('Time' + --cc);
     console.log(cc);
     if (cc === 0) {
       clearInterval(interval);
       $('.tosolve').html(Game.workingString);
+      $('.information').html('');
     }
     console.log('here');
 

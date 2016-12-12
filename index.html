@@ -16,7 +16,7 @@
     <main class = "screen">
       <div class="inner">
         <div class="display">
-          <p class="tosolve">This is test</p>
+          <p class="tosolve"></p>
           <p class="information"></p>
         </div>
         <div class="vitalStats">
@@ -27,7 +27,6 @@
             <li class="timer">TIMER:</li>
           </ul>
         </div>
-
 
         <div class="terminalMock" onclick="$('#input').focus();">
           <ul>
@@ -43,9 +42,8 @@
             </p>
           </div>
 
-
           <form id="form" action="index.html" method="post">
-            <button type="submit" name="button"></button>
+            <button type="submit" class="collectUserInput" name="button"></button>
             <input id="input" autocomplete="off" type="text" name="term1">
           </form>
         </div>
