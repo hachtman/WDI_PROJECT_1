@@ -10,18 +10,26 @@ var Game = Game || {
   cipher_functions: {caesarKey: function getCaesarShift() {
     return Math.floor(Math.random() * 26);
   }
+  },
+  Control: {
+    running: true
   }
 };
 
 $(run);
 
 function run () {
-  $('#input').focus();
+
+  Game.caret();
   Game.generateProblem();
+  $('#input').focus();
+  // Game.timer();
   $('form').on('submit', function(e){
     e.preventDefault();
+    $('#writer').html('');
     var $input = $('#input');
     Game.isCorrect($input.val());
+    $(this).closest('form').find('input[type=text], textarea').val('');
   });
 }
 
@@ -46,26 +54,26 @@ Game.clear = function(winOrLose) {
     console.log('.clear shouldn\'t be running');
     return false;
   }
-  $('#input'). find('input[type=text], textarea').val('');
+  $('#input').html('');
   Game.workingString = [];
   console.log($('cleared'));
   Game.generateProblem();
 };
 
-//Check for lvl up. Broken.
+//Check for lvl up.
 Game.lvlUp = function() {
   if(Game.points < 10) {
     return true;
-  } else if(Game.points < 20){
+  } else if(Game.points === 20){
     Game.diff = 1;
     $('.Level').html('LVL: 1');
-    // youLvldUp();
-  } else if(Game.points < 30){
+    Game.youLvldUp();
+  } else if(Game.points === 30){
     Game.diff = 2;
     $('.Level').html('LVL: 2');
-    // youLvldUp();
+    Game.youLvldUp();
   } else if(Game.points === 40) {
-    // Game.youWon();
+    Game.youWon();
   }
 };
 
@@ -131,8 +139,10 @@ Game.fisherYatesShuffleMiddleOnly = function() {
     console.log('broken in function fischerYatesMiddle');
     return false;
   }
+  //While removing one element from length still evals to true...
   while (--i) {
-    var j = Math.floor( Math.random() * (i + 1) );
+    //Create a random number
+    var j = Math.floor( Math.random() * (i + 1));
     var tempi = Game.workingString[i];
     var tempj = Game.workingString[j];
     Game.workingString[i] = tempj;
@@ -141,12 +151,103 @@ Game.fisherYatesShuffleMiddleOnly = function() {
   //Re-add the first and last elements.
   Game.workingString.unshift(char0);
   Game.workingString.push(charLast);
-  console.log(Game.workingString);
 };
 
+Game.youLvldUp = function() {
+  console.log('lvlup');
+  $('.tosolve').html('');
+  $('.information').html('Well done. Feeling lucky? Round two coming up.');
+  var cc = 5;
+
+  var interval = setInterval(function() {
+    $('.timer').html(--cc);
+    console.log(cc);
+    if (cc === 0)
+      clearInterval(interval);
+    console.log('here');
+
+  }, 1000);
+  console.log('I work');
 
 
-Game.caesarCipher = function() {
-  var key    = Game.cipher_functions.caesarKey();
-  var string =
+  // $('.tosolve').html('');
+  // $('.information').html('Well done. Feeeling lucky? Solve the cipher for an extra 20s next round. If you dont solve it, you\'ll start 10 short.');
+  //
+  // $('.information').append('<inupt id = "caesar">');
+  // $('#caesar').focus();
+  // console.log($('#caesar'));
+  // $('#caesar').on('keydown', function(e){
+  //   console.log(e.which);
+  //   if(e.which === 13) {
+  //     Game.playCaesar();
+  //   } else {
+  //     Game.generateProblem();
+  //     console.log('no caesar');
+  //   }
+  // });
+};
+
+Game.youWon = function() {
+  alert('you won!');
+  Game.reset();
+  run();
+};
+
+Game.reset = function() {
+  Game.diff = 0;
+  Game.points = 0;
+  Game.answerString= '';
+  Game.String = [];
+
+  console.log('reset');
+  location.reload();
+};
+
+Game.playCaesar = function() {
+  console.log('playing caesar');
+};
+
+// Game.caesarCipher = function() {
+//   Game.workingString = [];
+//   Game.caesarString  = [];
+//   var key    = Game.cipher_functions.caesarKey();
+//   var str    = Game.pickRandomString(0);
+//   for(var i = 0; i < str.length; i++) {
+//     Game.workingString.push(str.charAt(i));
+//   }
+//   for(var j = 0; j < Game.workingString.length; j++) {
+//     Game.caesarString[i] = (Game.workingString[i] - 'a' + key) % 26 + 'a';
+//   }
+//   console.log(Game.caesarString);
+//   return Game.caesarString.join('');
+//
+// };
+
+// Game.caret = function() {
+//   var textArea = $('#writer');
+//   console.log(textArea);
+//   $('#input').on('keydown', function(e) {
+//     var charPressed = e.which;
+//     var toPrint = String.fromCharCode(charPressed);
+//     textArea.append(toPrint);
+//     if(e.which === 8){
+//       console.log('delete');
+//       textArea = textArea.slice(0, -1);
+//     }
+//   });
+// };
+
+
+Game.caret = function() {
+  //Select the span and save as a variable.
+  var textArea = $('#writer');
+  //Add event listener to input.
+  $('#input').on('keydown', function(e) {
+    //Set the html to ''.
+    textArea.html('');
+    var ascii = $(e.target).val();
+    console.log(ascii);
+    $('#fakeCursor').prepend('');
+    textArea.append(ascii);
+  });
 };

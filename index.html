@@ -24,17 +24,29 @@
             <li class="points">POINTS: 0</li>
             <li class="Level">LVL: 0</li>
             <li class="wordspermin">WPM: 0</li>
+            <li class="timer">TIMER:</li>
           </ul>
         </div>
 
 
         <div class="terminalMock">
-          <p class = "termInput">~/<span class= "termInput"></span><div id="fakeCursor" class="termInput"></div></p>
+          <ul>
+            <li id= "prevAnswer3"></li>
+            <li id= "prevAnswer2"></li>
+            <li id= "prevAnswer1"></li>
+          </ul>
+
+          <div class = "termInput" onclick="$('setter').focus();" >
+            <p class="textArea">
+              <span id= "writer"></span>
+              <span id="fakeCursor"></span>
+            </p>
+          </div>
 
 
           <form id="form" action="index.html" method="post">
             <button type="submit" name="button"></button>
-            <input id="input" type="text" name="term1">
+            <input id="input"  type="text" name="term1">
           </form>
         </div>
 

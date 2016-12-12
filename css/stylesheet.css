@@ -28,18 +28,24 @@ main {
   border: 3px solid grey;
 }*/
 
-div.cipher {
+/*div.display {
   margin: 0 auto;;
   padding: 40px;
   height: 350px;
   width: 650px;
   border: 3px solid grey;
   display: inline-block;
-}
+}*/
 
 div.cipher > p {
   margin-top: 60px;
   font-size: 4em;
+}
+
+#caesar {
+  background-color: orange;
+  height: 20px;
+  width: 40px;
 }
 
 div.terminalMock {
