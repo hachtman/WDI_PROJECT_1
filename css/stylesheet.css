@@ -1,4 +1,5 @@
 body {
+  background-image: url("../images/windows_95_1.jpg");
   background-color: #FFF;
   margin: 0 auto;
   text-align: center;
@@ -21,7 +22,7 @@ main {
   height: 580px;
   margin: 40px;
   color: #00FF00;
-  background-color: black;
+
 }
 /*div.inner {
   background-color: grey;
@@ -53,12 +54,24 @@ div.cipher > p {
 }
 
 #caesar {
-  background-color: orange;
-  height: 20px;
-  width: 40px;
+  color: inherit;
+  background-color: black;
+  border: 2px solid red;
+  height: 50px;
+  width: 70px;
+  margin-top: 10px;
+}
+#noCaesar {
+  color: inherit;
+  background-color: black;
+  border: 2px solid green;
+  height: 50px;
+  width: 70px;
+  margin-top: 10px;
 }
 
 div.terminalMock {
+  background-image: url("..images/cmdprompt.gif");
   height: 150px;
   width: 526px;
   margin-left: 48px;
