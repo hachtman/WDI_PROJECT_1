@@ -39,7 +39,7 @@ Game.intro = function() {
   var startButton = document.createElement('button');
   $(startButton).attr('id', 'start');
   $(startButton).html('START');
-  $('.display').append(startButton);
+  $('.terminalMock').append(startButton);
 
 };
 
@@ -63,7 +63,7 @@ Game.initialise = function() {
 Game.timeOnLvl1 = function() {
   Game.cc = 30;
   var interval = setInterval(function() {
-    $('.timer').html('Time' + --Game.cc);
+    $('.timer').html('TIME: ' + --Game.cc);
     if(Game.points === 10) {
       console.log('fired');
       clearInterval(interval);
@@ -78,7 +78,7 @@ Game.timeOnLvl1 = function() {
 Game.timeOnLvl2 = function() {
   Game.cc = 35;
   var interval = setInterval(function() {
-    $('.timer').html('Time' + --Game.cc);
+    $('.timer').html('TIME: ' + --Game.cc);
     if(Game.points === 20) {
       clearInterval(interval);
     }
@@ -229,41 +229,41 @@ Game.fisherYatesShuffleMiddleOnly = function() {
 
 Game.youLvldUp = function() {
   $('.tosolve').html('');
-  if(Game.diff === 1) {
-    $('.information').html('Well done. Feeeling lucky? Solve the cipher for an extra 10s next round. If you dont solve it, you\'ll start 5s short.');
-  } else if(Game.diff === 2) {
-    $('.information').html('That was good. Feeeling lucky this time? Solve the cipher for an extra 10s next round. If you dont solve it, you\'ll start 5s short.');
-  }
-  $('.information').append('<button id = "caesar">Take the challenge</button>');
-  $('.information').append('<button id = "noCaesar">Play it safe</button>');
+  // if(Game.diff === 1) {
+  //   $('.information').html('Well done. Feeeling lucky? Solve the cipher for an extra 10s next round. If you dont solve it, you\'ll start 5s short.');
+  // } else if(Game.diff === 2) {
+  //   $('.information').html('That was good. Feeeling lucky this time? Solve the cipher for an extra 10s next round. If you dont solve it, you\'ll start 5s short.');
+  // }
+  // $('.information').append('<button id = "caesar">Take the challenge</button>');
+  // $('.information').append('<button id = "noCaesar">Play it safe</button>');
+  //
+  // $('#caesar').on('click', function(){
+  //   Game.playCaesar();
+  // });
+  // $('#noCaesar').on('click', function(){
+  //   console.log('no caesar');
+  //   $('.tosolve').html('');
+  //   if(Game.diff === 1) {
+  //     $('.information').html('Well done. Feeling lucky? Round two coming up.');
+  //   } else if(Game.diff === 2) {
+  //     $('.information').html('Last one inbound. This time all the letters are a mess.');
+  //   }
 
-  $('#caesar').on('click', function(){
-    Game.playCaesar();
-  });
-  $('#noCaesar').on('click', function(){
-    console.log('no caesar');
-    $('.tosolve').html('');
-    if(Game.diff === 1) {
-      $('.information').html('Well done. Feeling lucky? Round two coming up.');
-    } else if(Game.diff === 2) {
-      $('.information').html('Last one inbound. This time all the letters are a mess.');
-    }
-
-    var cc = 5;
-    var interval = setInterval(function() {
-      $('.timer').html('Time' + --cc);
-      if (cc === 0) {
-        clearInterval(interval);
-        $('.tosolve').html(Game.workingString);
-        $('.information').html('');
-        if(Game.diff === 1) {
-          Game.timeOnLvl2();
-        } else if(Game.diff === 2) {
-          Game.timeOnLvl3();
-        }
+  var cc = 5;
+  var interval = setInterval(function() {
+    $('.timer').html('Time' + --cc);
+    if (cc === 0) {
+      clearInterval(interval);
+      $('.tosolve').html(Game.workingString);
+      $('.information').html('');
+      if(Game.diff === 1) {
+        Game.timeOnLvl2();
+      } else if(Game.diff === 2) {
+        Game.timeOnLvl3();
       }
-    }, 1000);
-  });
+    }
+  }, 1000);
+  // });
 };
 
 Game.youWon = function() {
@@ -283,33 +283,33 @@ Game.reset = function() {
   location.reload();
 };
 
-Game.playCaesar = function() {
-  Game.caesarCipher();
-  $('.tosolve').html(Game.workingString);
-  Game.timeOnLvl2();
-};
+// Game.playCaesar = function() {
+//   Game.caesarCipher();
+//   $('.tosolve').html(Game.workingString);
+//   Game.timeOnLvl2();
+// };
 
-Game.caesarCipher = function() {
-  Game.workingString = [];
-  Game.caesarString  = [];
-  var key    = Game.cipher_functions.caesarKey();
-  var str    = Game.pickRandomString(0);
-  console.log(key);
-  for(var i = 0; i < str.length; i++) {
-    Game.caesarString.push(str[i]);
-  }
-  for(var k = 0; k < Game.caesarString.length; k++ ) {
-    Game.workingString.push(Game.caesarString[k].charCodeAt(0));
-  }
-  for(var j = 0; j < Game.workingString.length; j++) {
-    Game.workingString[j] = (Game.workingString[j] - 97 + key) % 26 + 97;
-  }
-  for(var l = 0; l < Game.workingString.length; l++) {
-    Game.workingString[l] = String.fromCharCode(Game.workingString[l]);
-  }
-  Game.answerString = Game.caesarString.join('');
-  console.log(Game.answerString);
-};
+// Game.caesarCipher = function() {
+//   Game.workingString = [];
+//   Game.caesarString  = [];
+//   var key    = Game.cipher_functions.caesarKey();
+//   var str    = Game.pickRandomString(0);
+//   console.log(key);
+//   for(var i = 0; i < str.length; i++) {
+//     Game.caesarString.push(str[i]);
+//   }
+//   for(var k = 0; k < Game.caesarString.length; k++ ) {
+//     Game.workingString.push(Game.caesarString[k].charCodeAt(0));
+//   }
+//   for(var j = 0; j < Game.workingString.length; j++) {
+//     Game.workingString[j] = (Game.workingString[j] - 97 + key) % 26 + 97;
+//   }
+//   for(var l = 0; l < Game.workingString.length; l++) {
+//     Game.workingString[l] = String.fromCharCode(Game.workingString[l]);
+//   }
+//   Game.answerString = Game.caesarString.join('');
+//   console.log(Game.answerString);
+// };
 
 
 Game.caret = function() {

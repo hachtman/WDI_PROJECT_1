@@ -1,5 +1,6 @@
 body {
   background-image: url("../images/windows_95_1.jpg");
+  background-image: cover;
   background-color: #FFF;
   margin: 0 auto;
   text-align: center;
@@ -18,39 +19,54 @@ h1 {
 }
 
 main {
-  border: 3px solid grey;
   height: 580px;
   margin: 40px;
   color: #00FF00;
+  text-align: center;
 
 }
-/*div.inner {
-  background-color: grey;
-  border: 3px solid grey;
-}*/
 
-/*div.display {
-  margin: 0 auto;;
-  padding: 40px;
-  height: 350px;
-  width: 650px;
-  border: 3px solid grey;
-  display: inline-block;
-}*/
 
 p.information {
   width: 530px;
   margin-top: 160px;
   margin-left: 60px;
-}
-p.tosolve {
-  margin-top: 10px;
   font-size: 4em;
 }
 
-div.cipher > p {
-  margin-top: 60px;
-  font-size: 4em;
+
+div.display {
+  background-color: black;
+  height: 210px;
+  width: 666px;
+  text-align: left;
+  box-shadow: 0 0 2em black;
+}
+
+div.vitalStats {
+  background-color: black;
+  text-align: left;
+  margin-right: 30px;
+  margin-top: -210px;
+  float: right;
+  display: inline-block;
+  height: 90px;
+  width: 170px;
+  box-shadow: 0 0 2em black;
+}
+
+div.terminalMock {
+  background-color: black;
+  height: 150px;
+  width: 526px;
+  margin-left: -22px;
+  margin-top: 170px;
+  padding: 20px;
+  box-shadow: 0 0 2em black;
+}
+
+li.timer {
+  font-size: 2em;
 }
 
 #caesar {
@@ -61,28 +77,18 @@ div.cipher > p {
   width: 70px;
   margin-top: 10px;
 }
-#noCaesar {
+/*#noCaesar {
   color: inherit;
   background-color: black;
   border: 2px solid green;
   height: 50px;
   width: 70px;
   margin-top: 10px;
-}
-
-div.terminalMock {
-  background-image: url("..images/cmdprompt.gif");
-  height: 150px;
-  width: 526px;
-  margin-left: 48px;
-  margin-top: 0px;
-  padding: 20px;
-  border: 3px solid grey;
-}
+}*/
 
 #start {
-  height: 40px;
-  width: 100px;
+  height: 60px;
+  width: 120px;
   border: 4px solid green;
   font-family: inherit;
   font-size: 1.1em;
@@ -115,15 +121,7 @@ p.termInput {
   margin-top: 150px;
 }
 
-div.vitalStats {
-  margin-right: 30px;
-  margin-top: -160px;
-  float: right;
-  display: inline-block;
-  border: 3px solid grey;
-  height: 460px;
-  width: 170px;
-}
+
 
 input {
   /*width: 90%;
