@@ -6,28 +6,37 @@
     <link rel="stylesheet" href="./css/stylesheet.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/typed.js"></script>
-    <script src="js/app.js" charset="utf-8"></script>
+    <script src="js/app1.js" charset="utf-8"></script>
     <title>Project 1</title>
 
   </head>
   <body>
+
     <header>
       <h1>Hack3d.</h1>
+      <nav>
+        <ul>
+          <li><button class = "about">About</button></li>
+          <li>Instructions</li>
+          <li>Contact</li>
+        </ul>
+      </nav>
     </header>
     <main class = "screen">
 
         <div class="display">
           <p class="tosolve"></p>
           <p class="information"></p>
+          <div class="vitalStats">
+            <ul>
+              <li class="points">POINTS: 0</li>
+              <li class="Level">LVL: 0</li>
+              <li class="wordspermin">WPM: 0</li>
+              <li class="timer">TIME: </li>
+            </ul>
+          </div>
         </div>
-        <div class="vitalStats">
-          <ul>
-            <li class="points">POINTS: 0</li>
-            <li class="Level">LVL: 0</li>
-            <li class="wordspermin">WPM: 0</li>
-            <li class="timer">TIME: </li>
-          </ul>
-        </div>
+
 
         <div class="terminalMock" onclick="$('#input').focus();">
           <ul>
@@ -51,14 +60,9 @@
 
     </main>
     <footer>
-      <nav>
-        <ul>
-          <li>About</li>
-          <li>Instructions</li>
-          <li>Contact</li>
-        </ul>
-      </nav>
 
   </footer>
+    <p class = "footer">&copyjack fuller \\ Source code: https://github.com/hachtman</p>
   </body>
+
 </html>

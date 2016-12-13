@@ -1,4 +1,3 @@
-//Create the game object to store the vars, functions game material and flavour text.
 var Game = Game || {
   diff: 0,
   points: 0,
@@ -13,6 +12,8 @@ var Game = Game || {
   }
 };
 
+var countForFlicker = 0;
+
 $(run);
 
 function run() {
@@ -26,17 +27,19 @@ Game.intro = function() {
 
   $(function(){
     $('.information').typed({
-      strings: ['You\'ve been using a common password and have been hacked by L337 H4x0r. Common passwords are easy to crack, even when they\'re scrambled. Crack 10 in 30s to move on. PRESS START TO BEGIN.'],
-      typeSpeed: 1
+      strings: ['You\'ve been using a sh*t password and have been hacked by L337 H4x0r. Common passwords are easy to crack, even when they\'re scrambled. Crack 10 in 30s to move on. PRESS START TO BEGIN.'],
+      typeSpeed: 0
     });
   });
   var startButton = document.createElement('button');
   $(startButton).attr('id', 'start');
   $(startButton).html('START');
   $('.terminalMock').append(startButton);
+
 };
 
 Game.initialise = function() {
+
   $('#start').remove();
   $('#input').focus();
   $('.information').html('');
@@ -81,18 +84,6 @@ Game.timeOnLvl2 = function() {
     }
   }, 1000);
 };
-Game.isCorrect = function($input) {
-  if($input === Game.answerString) {
-    console.log('Well Played!');
-    Game.points++;
-    Game.clear(1);
-    $('.information').html('');
-  } else {
-    console.log('false');
-  }
-  $('.points').html('POINTS: ' + Game.points);
-  Game.lvlUp();
-};
 
 Game.timeOnLvl3 = function() {
   Game.cc = 35;
@@ -110,13 +101,38 @@ Game.timeOnLvl3 = function() {
 };
 
 Game.timeOut = function() {
-  console.log('timeoutfired');
-  $('.information').html('You lose! Do you wish to play again?');
+  // $('.information').html('You lose! Do you wish to play again?');
+  $(function(){
+    $('.information').typed({
+      strings: ['You lose! Do you wish to play again?'],
+      typeSpeed: 0
+    });
+  });
+  Game.flicker();
+  $('.tosolve').html('');
+
   var startButton = document.createElement('button');
   $(startButton).attr('id', 'start');
   $(startButton).html('START');
   $('.terminalMock').append(startButton);
   $('#start').on('click', Game.reset);
+};
+
+
+
+Game.isCorrect = function($input) {
+  if($input === Game.answerString) {
+    console.log('Well Played!');
+    Game.points++;
+    Game.clear(1);
+    $('.information').html('');
+  } else {
+    console.log('false');
+    Game.flicker();
+    $('#input').focus();
+  }
+  $('.points').html('POINTS: ' + Game.points);
+  Game.lvlUp();
 };
 
 Game.clear = function() {
@@ -126,7 +142,6 @@ Game.clear = function() {
   console.log($('cleared'));
   Game.generateProblem();
 };
-
 //Check for lvl up.
 Game.lvlUp = function() {
   if(Game.points < 10) {
@@ -153,7 +168,6 @@ Game.generateProblem = function() {
       typeSpeed: 1
     });
   });
-  // $('.tosolve').html(Game.workingString);
 };
 
 Game.jumble = function() {
@@ -172,7 +186,6 @@ Game.jumble = function() {
     Game.fisherYatesShuffle();
   }
 };
-
 //Function to pick a random string, dependant on difficulty.
 Game.pickRandomString = function(diff){
   if(diff === 0) {
@@ -227,43 +240,31 @@ Game.fisherYatesShuffleMiddleOnly = function() {
 };
 
 Game.youLvldUp = function() {
+  console.log('fired');
   $('.tosolve').html('');
-  // if(Game.diff === 1) {
-  //   $('.information').html('Well done. Feeeling lucky? Solve the cipher for an extra 10s next round. If you dont solve it, you\'ll start 5s short.');
-  // } else if(Game.diff === 2) {
-  //   $('.information').html('That was good. Feeeling lucky this time? Solve the cipher for an extra 10s next round. If you dont solve it, you\'ll start 5s short.');
-  // }
-  // $('.information').append('<button id = "caesar">Take the challenge</button>');
-  // $('.information').append('<button id = "noCaesar">Play it safe</button>');
-  //
-  // $('#caesar').on('click', function(){
-  //   Game.playCaesar();
-  // });
-  // $('#noCaesar').on('click', function(){
-  //   console.log('no caesar');
-  //   $('.tosolve').html('');
   if(Game.diff === 1) {
-    $('.information').html('Well done. Feeling lucky? Round two coming up.');
+    $('.information').html('Well done. Round two coming up.');
   } else if(Game.diff === 2) {
-    $('.information').html('Last one inbound. This time all the letters are a mess.');
+    $('.information').html('That was good. Feeeling lucky this time? This time the whole word is rearranged.');
   }
-  console.log(Game.diff);
-  var cc = 5;
-  var interval = setInterval(function() {
-    $('.timer').html('Time' + --cc);
-    if (cc === 0) {
-      clearInterval(interval);
-      $('.tosolve').html();
-      $('.information').html('');
-    }
-    if(Game.diff === 1) {
-      Game.timeOnLvl2();
-    } else if(Game.diff === 2) {
-      Game.timeOnLvl3();
-    }
+  $('.terminalMock').append('<button id = "continue" class="button">Continue</button>');
 
-  }, 1000);
-  // });
+  $('#continue').on('click', function(){
+    $('#continue').remove();
+    var cc = 5;
+    var interval = setInterval(function() {
+      $('.timer').html('TIME: ' + --cc);
+      if (cc === 0) {
+        clearInterval(interval);
+        $('.tosolve').html('');
+        if(Game.diff === 1) {
+          Game.timeOnLvl2();
+        } else if(Game.diff === 2) {
+          Game.timeOnLvl3();
+        }
+      }
+    }, 1000);
+  });
 };
 
 Game.youWon = function() {
@@ -271,7 +272,7 @@ Game.youWon = function() {
   var startButton = document.createElement('button');
   $(startButton).attr('id', 'start');
   $(startButton).html('START');
-  $('.terminalMock').append(startButton);
+  $('.display').append(startButton);
   $('#start').on('click', Game.reset);
 };
 
@@ -283,34 +284,33 @@ Game.reset = function() {
   location.reload();
 };
 
-// Game.playCaesar = function() {
-//   Game.caesarCipher();
-//   $('.tosolve').html(Game.workingString);
-//   Game.timeOnLvl2();
-// };
+Game.playCaesar = function() {
+  Game.caesarCipher();
+  $('.tosolve').html(Game.workingString);
+  Game.timeOnLvl2();
+};
 
-// Game.caesarCipher = function() {
-//   Game.workingString = [];
-//   Game.caesarString  = [];
-//   var key    = Game.cipher_functions.caesarKey();
-//   var str    = Game.pickRandomString(0);
-//   console.log(key);
-//   for(var i = 0; i < str.length; i++) {
-//     Game.caesarString.push(str[i]);
-//   }
-//   for(var k = 0; k < Game.caesarString.length; k++ ) {
-//     Game.workingString.push(Game.caesarString[k].charCodeAt(0));
-//   }
-//   for(var j = 0; j < Game.workingString.length; j++) {
-//     Game.workingString[j] = (Game.workingString[j] - 97 + key) % 26 + 97;
-//   }
-//   for(var l = 0; l < Game.workingString.length; l++) {
-//     Game.workingString[l] = String.fromCharCode(Game.workingString[l]);
-//   }
-//   Game.answerString = Game.caesarString.join('');
-//   console.log(Game.answerString);
-// };
-
+Game.caesarCipher = function() {
+  Game.workingString = [];
+  Game.caesarString  = [];
+  var key    = Game.cipher_functions.caesarKey();
+  var str    = Game.pickRandomString(0);
+  console.log(key);
+  for(var i = 0; i < str.length; i++) {
+    Game.caesarString.push(str[i]);
+  }
+  for(var k = 0; k < Game.caesarString.length; k++ ) {
+    Game.workingString.push(Game.caesarString[k].charCodeAt(0));
+  }
+  for(var j = 0; j < Game.workingString.length; j++) {
+    Game.workingString[j] = (Game.workingString[j] - 97 + key) % 26 + 97;
+  }
+  for(var l = 0; l < Game.workingString.length; l++) {
+    Game.workingString[l] = String.fromCharCode(Game.workingString[l]);
+  }
+  Game.answerString = Game.caesarString.join('');
+  console.log(Game.answerString);
+};
 
 Game.caret = function() {
   //Select the span and save as a variable.
@@ -323,4 +323,26 @@ Game.caret = function() {
     var ascii = $(e.target).val();
     textArea.append(ascii);
   });
+};
+
+Game.flicker = function(count, callback, current) {
+  /*Shout to Arun P Johny for the meat of this one. https://stackoverflow.com/questions/19508211/creating-a-flickering-style-effect-in-jquery */
+  countForFlicker++;
+  if (countForFlicker > 10){
+    return false;
+  }
+  current = current || 0;
+  $('.terminalMock')[current % 2 === 0 ? 'hide' : 'show']();
+  setTimeout(function(){
+    if (count * 2 <= current) {
+      callback();
+      return;
+    }
+    Game.flicker(count, callback, current + 1);
+  }, 20);
+  setTimeout(function () {
+    Game.flicker(3, function () {
+      $('.terminalMock').fadeIn('fast');
+    });
+  }, 1000);
 };
