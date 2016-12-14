@@ -186,12 +186,11 @@ Game.jumble = function() {
   //Shuffle the array using the knuth shuffle and overwrite the working string variable.
   // if(Game.workingString.length > 1) {
   //   Game.fisherYatesShuffleSENTENCES();} else {
-    if(Game.diff === 0 || Game.diff === 1){
-      Game.fisherYatesShuffleMiddleOnly();
-    } else {
-      Game.fisherYatesShuffle();
-    }
-
+  if(Game.diff === 0 || Game.diff === 1){
+    Game.fisherYatesShuffleMiddleOnly();
+  } else {
+    Game.fisherYatesShuffle();
+  }
 };
 //Function to pick a random string, dependant on difficulty.
 Game.pickRandomString = function(diff){
@@ -217,10 +216,10 @@ Game.fisherYatesShuffleSENTENCES = function() {
 };
 // Game.fisherYatesShuffleSENTENCES = function() {
 //   console.log(Game.workingString);
-//   var snief = Game.workingString.split(' ').map(function(word){
+//   var s = Game.workingString.split(' ').map(function(word){
 //     return Game.knuthArg(word);
 //   }).join(' ');
-//   console.log(snief);
+//   console.log(s);
 // };
 
 Game.knuthArg = function(word) {
@@ -309,7 +308,6 @@ Game.youLvldUp = function() {
         }
       }
     }, 1000);
-
   });
 };
 
@@ -330,33 +328,33 @@ Game.reset = function() {
   location.reload();
 };
 
-Game.playCaesar = function() {
-  Game.caesarCipher();
-  $('.tosolve').html(Game.workingString);
-  Game.timeOnLvl2();
-};
-
-Game.caesarCipher = function() {
-  Game.workingString = [];
-  Game.caesarString  = [];
-  var key    = Game.cipher_functions.caesarKey();
-  var str    = Game.pickRandomString(0);
-  console.log(key);
-  for(var i = 0; i < str.length; i++) {
-    Game.caesarString.push(str[i]);
-  }
-  for(var k = 0; k < Game.caesarString.length; k++ ) {
-    Game.workingString.push(Game.caesarString[k].charCodeAt(0));
-  }
-  for(var j = 0; j < Game.workingString.length; j++) {
-    Game.workingString[j] = (Game.workingString[j] - 97 + key) % 26 + 97;
-  }
-  for(var l = 0; l < Game.workingString.length; l++) {
-    Game.workingString[l] = String.fromCharCode(Game.workingString[l]);
-  }
-  Game.answerString = Game.caesarString.join('');
-  console.log(Game.answerString);
-};
+// Game.playCaesar = function() {
+//   Game.caesarCipher();
+//   $('.tosolve').html(Game.workingString);
+//   Game.timeOnLvl2();
+// };
+//
+// Game.caesarCipher = function() {
+//   Game.workingString = [];
+//   Game.caesarString  = [];
+//   var key    = Game.cipher_functions.caesarKey();
+//   var str    = Game.pickRandomString(0);
+//   console.log(key);
+//   for(var i = 0; i < str.length; i++) {
+//     Game.caesarString.push(str[i]);
+//   }
+//   for(var k = 0; k < Game.caesarString.length; k++ ) {
+//     Game.workingString.push(Game.caesarString[k].charCodeAt(0));
+//   }
+//   for(var j = 0; j < Game.workingString.length; j++) {
+//     Game.workingString[j] = (Game.workingString[j] - 97 + key) % 26 + 97;
+//   }
+//   for(var l = 0; l < Game.workingString.length; l++) {
+//     Game.workingString[l] = String.fromCharCode(Game.workingString[l]);
+//   }
+//   Game.answerString = Game.caesarString.join('');
+//   console.log(Game.answerString);
+// };
 
 Game.caret = function() {
   //Select the span and save as a variable.
