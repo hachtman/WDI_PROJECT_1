@@ -209,11 +209,11 @@ Game.pickRandomString = function(diff){
 };
 
 Game.fisherYatesShuffleSENTENCES = function() {
-  console.log(Game.workingString);
+
   Game.workingString.map(function(word){
     return Game.knuthArg(word);
   }).join(' ');
-
+  console.log(Game.workingString);
 };
 // Game.fisherYatesShuffleSENTENCES = function() {
 //   console.log(Game.workingString);
