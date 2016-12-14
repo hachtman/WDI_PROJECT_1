@@ -1,11 +1,17 @@
 var Game = Game || {
   diff: 0,
   points: 0,
+  countdown: 0,
   answerString: '',
   workingString: [],
-  strings_low_diff: ['password', 'enter', 'dragon', 'baseball', 'football', 'monkey', 'master', 'jordan', 'asshole', 'fuckme', 'let me in', 'fuck', 'pass', 'yellow', 'secret', 'guitar', 'love'],
+  strings_low_diff: ['password', 'enter', 'dragon', 'baseball', 'football', 'monkey', 'master', 'jordan', 'asshole', 'fuckme', 'code', 'fuck', 'pass', 'yellow', 'secret', 'guitar', 'love', 'wtf', 'key', 'james', 'cat', 'dog', 'soccer', 'sunshine', 'killer', 'hockey', 'yankees', 'silver', 'orange', 'thunder', 'fucker', 'cheese', 'princess', 'chelsea', 'cowboy'],
+
   strings_med_diff: ['abc123', 'jennifer', 'joshua', 'computer', 'ranger', 'batman'],
-  strings_high_diff: ['qwerty', 'mustang', 'TOUGH', '789'],
+
+  strings_high_diff: ['password', 'enter', 'dragon', 'baseball', 'football', 'monkey', 'master', 'jordan', 'asshole', 'fuckme', 'code', 'fuck', 'pass', 'yellow', 'secret', 'guitar', 'love', 'wtf', 'key', 'james', 'cat', 'dog'],
+
+  sentences: ['the quick brown fox', 'the bright red mustang', 'the orange jumpsuit', ''],
+
   cipher_functions: {caesarKey: function getCaesarShift() {
     return Math.floor(Math.random() * 26);
   }
@@ -27,7 +33,7 @@ Game.intro = function() {
 
   $(function(){
     $('.information').typed({
-      strings: ['You\'ve been using a sh*t password and have been hacked by L337 H4x0r. Common passwords are easy to crack, even when they\'re scrambled. Crack 10 in 30s to move on. PRESS START TO BEGIN.'],
+      strings: ['You\'ve been using a sh*t password and have been hacked by L337 H4x0r. Common passwords are easy to crack, even when they\'re scrambled. Crack 10 in 60s to move on. PRESS START TO BEGIN.'],
       typeSpeed: 0
     });
   });
@@ -42,7 +48,7 @@ Game.initialise = function() {
 
   $('#start').remove();
   $('#input').focus();
-  $('.information').html('');
+  // $('.information').html('');
   console.log($('.tosolve'));
   $('.tosolve').html('');
   $('form').on('submit', function(e){
@@ -57,7 +63,7 @@ Game.initialise = function() {
 };
 
 Game.timeOnLvl1 = function() {
-  Game.cc = 30;
+  Game.cc = 60;
   var interval = setInterval(function() {
     $('.timer').html('TIME: ' + --Game.cc);
     if(Game.points === 10) {
@@ -72,7 +78,7 @@ Game.timeOnLvl1 = function() {
 };
 
 Game.timeOnLvl2 = function() {
-  Game.cc = 35;
+  Game.cc = 65;
   var interval = setInterval(function() {
     $('.timer').html('TIME: ' + --Game.cc);
     if(Game.points === 20) {
@@ -86,7 +92,7 @@ Game.timeOnLvl2 = function() {
 };
 
 Game.timeOnLvl3 = function() {
-  Game.cc = 35;
+  Game.cc = 65;
   var interval = setInterval(function() {
     $('.timer').html('TIME: ' + --Game.cc);
     if(Game.points === 30) {
@@ -117,8 +123,6 @@ Game.timeOut = function() {
   $('.terminalMock').append(startButton);
   $('#start').on('click', Game.reset);
 };
-
-
 
 Game.isCorrect = function($input) {
   if($input === Game.answerString) {
@@ -180,11 +184,14 @@ Game.jumble = function() {
     Game.workingString.push(x.charAt(i));
   }
   //Shuffle the array using the knuth shuffle and overwrite the working string variable.
-  if(Game.diff === 0 || Game.diff === 1){
-    Game.fisherYatesShuffleMiddleOnly();
-  } else {
-    Game.fisherYatesShuffle();
-  }
+  // if(Game.workingString.length > 1) {
+  //   Game.fisherYatesShuffleSENTENCES();} else {
+    if(Game.diff === 0 || Game.diff === 1){
+      Game.fisherYatesShuffleMiddleOnly();
+    } else {
+      Game.fisherYatesShuffle();
+    }
+
 };
 //Function to pick a random string, dependant on difficulty.
 Game.pickRandomString = function(diff){
@@ -198,21 +205,38 @@ Game.pickRandomString = function(diff){
     console.log('pickRandomString is broken');
     return false;
   }
+
 };
 
-Game.fisherYatesShuffle = function() {
-  var i = Game.workingString.length;
-  if (i === 0) {
-    console.log('broken in function fischerYates');
-    return false;
+Game.fisherYatesShuffleSENTENCES = function() {
+  console.log(Game.workingString);
+  Game.workingString.map(function(word){
+    return Game.knuthArg(word);
+  }).join(' ');
+
+};
+// Game.fisherYatesShuffleSENTENCES = function() {
+//   console.log(Game.workingString);
+//   var snief = Game.workingString.split(' ').map(function(word){
+//     return Game.knuthArg(word);
+//   }).join(' ');
+//   console.log(snief);
+// };
+
+Game.knuthArg = function(word) {
+  var a        = word.split('');
+  var char0    = a.shift();
+  var charLast = a.pop();
+  var n        = a.length;
+  for (var i = n - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i];
+    a[i] = a[j];
+    a[j] = tmp;
   }
-  while (--i) {
-    var j = Math.floor( Math.random() * (i + 1) );
-    var tempi = Game.workingString[i];
-    var tempj = Game.workingString[j];
-    Game.workingString[i] = tempj;
-    Game.workingString[j] = tempi;
-  }
+  a.unshift(char0);
+  a.push(charLast);
+  return a.join('');
 };
 
 Game.fisherYatesShuffleMiddleOnly = function() {
@@ -239,24 +263,45 @@ Game.fisherYatesShuffleMiddleOnly = function() {
   Game.workingString.push(charLast);
 };
 
+Game.fisherYatesShuffle = function() {
+  var i = Game.workingString.length;
+  if (i === 0) {
+    console.log('broken in function fischerYates');
+    return false;
+  }
+  while (--i) {
+    var j = Math.floor( Math.random() * (i + 1) );
+    var tempi = Game.workingString[i];
+    var tempj = Game.workingString[j];
+    Game.workingString[i] = tempj;
+    Game.workingString[j] = tempi;
+  }
+};
+
 Game.youLvldUp = function() {
-  console.log('fired');
   $('.tosolve').html('');
   if(Game.diff === 1) {
     $('.information').html('Well done. Round two coming up.');
   } else if(Game.diff === 2) {
     $('.information').html('That was good. Feeeling lucky this time? This time the whole word is rearranged.');
   }
+  $('.tosolve').html('');
   $('.terminalMock').append('<button id = "continue" class="button">Continue</button>');
+  $('.information').append('<button id = "caesar">Take the challenge</button>');
+
+  $('#caesar').on('click', function(){
+    Game.playCaesar();
+  });
 
   $('#continue').on('click', function(){
     $('#continue').remove();
-    var cc = 5;
+    Game.countdown = 5;
     var interval = setInterval(function() {
-      $('.timer').html('TIME: ' + --cc);
-      if (cc === 0) {
+      $('.timer').html('TIME: ' + --Game.countdown);
+      if (Game.countdown === 0) {
         clearInterval(interval);
         $('.tosolve').html('');
+        $('.information').html('');
         if(Game.diff === 1) {
           Game.timeOnLvl2();
         } else if(Game.diff === 2) {
@@ -264,6 +309,7 @@ Game.youLvldUp = function() {
         }
       }
     }, 1000);
+
   });
 };
 
@@ -328,7 +374,7 @@ Game.caret = function() {
 Game.flicker = function(count, callback, current) {
   /*Shout to Arun P Johny for the meat of this one. https://stackoverflow.com/questions/19508211/creating-a-flickering-style-effect-in-jquery */
   countForFlicker++;
-  if (countForFlicker > 10){
+  if (countForFlicker > 20){
     return false;
   }
   current = current || 0;

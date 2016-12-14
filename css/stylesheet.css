@@ -1,5 +1,4 @@
 body {
-  background-image: cover;
   background-color: #DDD;
   margin: 0 auto;
   text-align: center;
@@ -27,6 +26,7 @@ h1 {
   font-size: 3em;
   font-weight: bold;
 }
+
 h3 {
   padding: 5px;
   font-size: 1.5em;
@@ -37,7 +37,6 @@ main {
   margin: 40px;
   color: #00EE00;
   text-align: center;
-
 }
 
 div.display {
@@ -48,17 +47,17 @@ div.display {
   box-shadow: 0 0 2em #222;
   margin: 0 auto;
   margin-bottom: 50px;
-
+  padding: 10px;
 }
 
 p.information {
-  width: 430px;
+  max-width: 430px;
   margin-top: 0px;
   margin-left: 10px;
-  font-size: 1em;
+  font-size: 1.3em;
 }
 p.tosolve {
-  font-size: 2em;
+  font-size: 3em;
 }
 
 div.vitalStats {
@@ -78,6 +77,9 @@ div.terminalMock {
   margin: 0 auto;
   padding: 20px;
   box-shadow: 0 0 2em black;
+}
+#writer {
+  max-width: 200px;
 }
 
 /*#noCaesar {
@@ -161,10 +163,14 @@ button.collectUserInput {
 }
 
 footer {
-  height: 100px;
   width: 100%;
   text-align: center;
   margin: 0 auto;
+  padding: 10px;
+  width: 100%;
+  height: 90px;
+  background-color: #FFF;
+  box-shadow: 0 0 0.8em #444;
 }
 
 nav {
